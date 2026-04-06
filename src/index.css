@@ -1,13 +1,22 @@
 @import "tailwindcss";
 
 @theme {
+  --color-brand-50: #f0f9ff;
   --color-brand-100: #e0f2fe;
+  --color-brand-200: #bae6fd;
+  --color-brand-300: #7dd3fc;
+  --color-brand-400: #38bdf8;
   --color-brand-500: #0ea5e9;
   --color-brand-600: #0284c7;
   --color-brand-700: #0369a1;
+  --color-brand-800: #075985;
   --color-brand-900: #0c4a6e;
   
-  --font-sans: "Inter", "Outfit", sans-serif;
+  --font-sans: "Inter", "Outfit", "Plus Jakarta Sans", sans-serif;
+  
+  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.18);
 }
 
 body {
@@ -15,4 +24,29 @@ body {
   font-family: var(--font-sans);
   background-color: #f8fafc;
   color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-brand-600), var(--color-brand-400));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-mesh {
+  background-color: #f8fafc;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.05) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.05) 0px, transparent 50%);
 }
