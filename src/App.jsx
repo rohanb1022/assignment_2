@@ -27,7 +27,8 @@ const properties = [
     verified: true,
     sqft: '4,500',
     year: '2023',
-    amenities: ['Private Pool', 'Gym', 'Concierge', 'Smart Home System']
+    amenities: ['Private Pool', 'Gym', 'Concierge', 'Smart Home System'],
+    type: 'apartment'
   },
   { 
     id: 2, 
@@ -39,7 +40,8 @@ const properties = [
     verified: true,
     sqft: '2,800',
     year: '2021',
-    amenities: ['Garden', 'Parking', 'Security', 'Play Area']
+    amenities: ['Garden', 'Parking', 'Security', 'Play Area'],
+    type: 'villa'
   },
   { 
     id: 3, 
@@ -51,7 +53,86 @@ const properties = [
     verified: true,
     sqft: '1,500',
     year: '2022',
-    amenities: ['Sea View', 'Balcony', 'Clubhouse', 'Yoga Room']
+    amenities: ['Sea View', 'Balcony', 'Clubhouse', 'Yoga Room'],
+    type: 'apartment'
+  },
+  { 
+    id: 4, 
+    title: 'Beverly Hills Estate', 
+    location: 'Beverly Hills, CA', 
+    price: '$12.5M', 
+    bhk: '6 BHK', 
+    img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800', 
+    verified: true,
+    sqft: '8,200',
+    year: '2020',
+    amenities: ['Pool', 'Tennis Court', 'Wine Cellar'],
+    type: 'villa'
+  },
+  { 
+    id: 5, 
+    title: 'Brooklyn Loft', 
+    location: 'DUMBO, Brooklyn', 
+    price: '$3.2M', 
+    bhk: '3 BHK', 
+    img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800', 
+    verified: true,
+    sqft: '2,400',
+    year: '2019',
+    amenities: ['Industrial Style', 'Roof Access', 'Gym'],
+    type: 'apartment'
+  },
+  { 
+    id: 6, 
+    title: 'Alpine Chalet', 
+    location: 'Aspen, Colorado', 
+    price: '$5.8M', 
+    bhk: '5 BHK', 
+    img: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=800', 
+    verified: true,
+    sqft: '4,000',
+    year: '2022',
+    amenities: ['Ski-in/Ski-out', 'Fireplace', 'Hot Tub'],
+    type: 'villa'
+  },
+  { 
+    id: 7, 
+    title: 'Azure Bay Villa', 
+    location: 'Miami Beach', 
+    price: '$7.4M', 
+    bhk: '4 BHK', 
+    img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800', 
+    verified: true,
+    sqft: '3,800',
+    year: '2024',
+    amenities: ['Private Beach', 'Infinity Pool', 'Boat Dock'],
+    type: 'villa'
+  },
+  { 
+    id: 8, 
+    title: 'Tokyo Zen Studio', 
+    location: 'Shibuya, Tokyo', 
+    price: '$1.8M', 
+    bhk: '1 BHK', 
+    img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800', 
+    verified: true,
+    sqft: '950',
+    year: '2023',
+    amenities: ['Minimalist Decor', 'Balcony', 'City View'],
+    type: 'apartment'
+  },
+  { 
+    id: 9, 
+    title: 'Modern Desert Oasis', 
+    location: 'Palm Springs', 
+    price: '$2.1M', 
+    bhk: '3 BHK', 
+    img: 'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&q=80&w=800', 
+    verified: true,
+    sqft: '2,600',
+    year: '2021',
+    amenities: ['Outdoor Kitchen', 'Pool', 'Solar Power'],
+    type: 'villa'
   },
 ];
 
@@ -355,7 +436,7 @@ const Sidebar = ({ activeSection, setActiveSection, isMobileMenuOpen, setMobileM
   );
 };
 
-const HeroSection = () => (
+const HeroSection = ({ searchQuery, setSearchQuery, searchType, setSearchType }) => (
   <section id="hero" className="min-h-[70vh] flex flex-col justify-center relative overflow-hidden rounded-3xl p-8 md:p-12 mb-20 bg-slate-900 border border-slate-800 mt-8">
     <div className="absolute inset-0 opacity-40">
       <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1600" alt="Luxury Real Estate" className="w-full h-full object-cover" />
@@ -376,12 +457,22 @@ const HeroSection = () => (
         <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-2 rounded-2xl flex flex-col md:flex-row gap-2">
           <div className="flex-1 flex items-center bg-white/5 rounded-xl px-4 py-3">
             <MapPin className="text-brand-400 mr-3" size={20} />
-            <input type="text" placeholder="Location..." className="bg-transparent border-none outline-none text-white w-full placeholder:text-slate-400" />
+            <input 
+              type="text" 
+              placeholder="Search by location..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-transparent border-none outline-none text-white w-full placeholder:text-slate-400" 
+            />
           </div>
           <div className="flex-[0.8] flex items-center bg-white/5 rounded-xl px-4 py-3">
             <Home className="text-brand-400 mr-3" size={20} />
-            <select className="bg-transparent border-none outline-none text-slate-300 w-full appearance-none">
-              <option value="" className="text-slate-900">Type</option>
+            <select 
+              value={searchType}
+              onChange={(e) => setSearchType(e.target.value)}
+              className="bg-transparent border-none outline-none text-slate-300 w-full appearance-none"
+            >
+              <option value="all" className="text-slate-900">All Types</option>
               <option value="apartment" className="text-slate-900">Apartment</option>
               <option value="villa" className="text-slate-900">Villa</option>
             </select>
@@ -395,51 +486,73 @@ const HeroSection = () => (
   </section>
 );
 
-const FeaturedProperties = ({ onPropertyClick }) => (
+const FeaturedProperties = ({ properties, onPropertyClick, onShowMore, hasMore }) => (
   <section id="properties" className="mb-24 scroll-mt-20">
     <div className="flex items-end justify-between mb-10">
       <div>
         <h2 className="text-3xl font-bold text-slate-900 mb-2">Featured Properties</h2>
         <p className="text-slate-500">Curated verified listings from top developers.</p>
       </div>
-      <button className="text-brand-600 font-bold flex items-center hover:text-brand-700 transition-colors hidden md:flex">
-        View All <ArrowRight size={18} className="ml-2" />
-      </button>
+      {hasMore && (
+        <button 
+          onClick={onShowMore}
+          className="text-brand-600 font-bold items-center hover:text-brand-700 transition-colors hidden md:flex"
+        >
+          View More <ArrowRight size={18} className="ml-2" />
+        </button>
+      )}
     </div>
     
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {properties.map((prop, idx) => (
-        <motion.div 
-          key={prop.id}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: idx * 0.1 }}
-          viewport={{ once: true }}
-          onClick={() => onPropertyClick(prop)}
-          className="bg-white rounded-3xl overflow-hidden shadow-xl shadow-slate-200/50 border border-slate-100 group cursor-pointer"
-        >
-          <div className="relative h-64 overflow-hidden">
-            <img src={prop.img} alt={prop.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-            <div className="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center shadow-lg">
-              <CheckCircle2 size={14} className="mr-1" /> Verified
+      <AnimatePresence mode="popLayout">
+        {properties.map((prop, idx) => (
+          <motion.div 
+            key={prop.id}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.4, delay: idx * 0.05 }}
+            layout
+            onClick={() => onPropertyClick(prop)}
+            className="bg-white rounded-3xl overflow-hidden shadow-xl shadow-slate-200/50 border border-slate-100 group cursor-pointer"
+          >
+            <div className="relative h-64 overflow-hidden">
+              <img src={prop.img} alt={prop.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div className="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center shadow-lg">
+                <CheckCircle2 size={14} className="mr-1" /> Verified
+              </div>
+              <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm text-slate-900 px-4 py-2 rounded-2xl font-extrabold border border-white shadow-lg">
+                {prop.price}
+              </div>
             </div>
-            <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm text-slate-900 px-4 py-2 rounded-2xl font-extrabold border border-white shadow-lg">
-              {prop.price}
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-1">
+                <div className="text-xs text-brand-600 font-extrabold uppercase tracking-widest">{prop.bhk}</div>
+                <div className="text-xs text-slate-400 font-bold">{prop.sqft} sq ft</div>
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-brand-600 transition-colors">{prop.title}</h3>
+              <div className="flex items-center text-slate-500 text-sm">
+                <MapPin size={16} className="mr-2 text-slate-400" /> {prop.location}
+              </div>
             </div>
-          </div>
-          <div className="p-6">
-            <div className="flex justify-between items-center mb-1">
-              <div className="text-xs text-brand-600 font-extrabold uppercase tracking-widest">{prop.bhk}</div>
-              <div className="text-xs text-slate-400 font-bold">{prop.sqft} sq ft</div>
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-brand-600 transition-colors">{prop.title}</h3>
-            <div className="flex items-center text-slate-500 text-sm">
-              <MapPin size={16} className="mr-2 text-slate-400" /> {prop.location}
-            </div>
-          </div>
-        </motion.div>
-      ))}
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
+
+    {!hasMore && properties.length > 0 && properties.length >= 3 && (
+      <div className="mt-12 text-center text-slate-400 font-medium text-sm">
+        You've reached the end of our current listings.
+      </div>
+    )}
+
+    {properties.length === 0 && (
+      <div className="text-center py-20 bg-slate-50 rounded-[3rem] border border-dashed border-slate-200">
+        <Building2 className="mx-auto text-slate-300 mb-4" size={48} />
+        <h3 className="text-xl font-bold text-slate-900">No properties found</h3>
+        <p className="text-slate-500 mt-2">Try adjusting your search criteria or type.</p>
+      </div>
+    )}
   </section>
 );
 
@@ -854,6 +967,19 @@ const App = () => {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [role, setRole] = useState('user'); // 'user' or 'admin'
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchType, setSearchType] = useState('all');
+  const [visibleCount, setVisibleCount] = useState(3);
+
+  const filteredProperties = properties.filter(prop => {
+    const matchesSearch = prop.location.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          prop.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesType = searchType === 'all' || prop.type === searchType;
+    return matchesSearch && matchesType;
+  });
+
+  const displayedProperties = filteredProperties.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredProperties.length;
 
   return (
     <div className="flex min-h-screen bg-[#fdfdfd] font-sans selection:bg-brand-500 selection:text-white pb-20 md:pb-0">
@@ -869,8 +995,18 @@ const App = () => {
       <main className="flex-1 w-full max-w-6xl mx-auto px-6 md:px-12 py-12 md:py-16 pt-24 md:pt-16 overflow-x-hidden">
         {role === 'user' ? (
           <>
-            <HeroSection />
-            <FeaturedProperties onPropertyClick={(prop) => setSelectedProperty(prop)} />
+            <HeroSection 
+              searchQuery={searchQuery} 
+              setSearchQuery={setSearchQuery} 
+              searchType={searchType} 
+              setSearchType={setSearchType} 
+            />
+            <FeaturedProperties 
+              properties={displayedProperties}
+              onPropertyClick={(prop) => setSelectedProperty(prop)} 
+              onShowMore={() => setVisibleCount(prev => prev + 3)}
+              hasMore={hasMore}
+            />
             <RevenueModel />
             <MarketingStrategy />
             <SecurityCenter />
